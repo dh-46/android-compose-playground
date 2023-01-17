@@ -1,5 +1,6 @@
 package com.dh46.compose_tutorial
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -69,7 +70,8 @@ fun MessageCard(msg: Message) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview(name = "Light Mode")
+@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
 @Composable
 fun PreviewMessageCard() {
     ComposetutorialTheme {
