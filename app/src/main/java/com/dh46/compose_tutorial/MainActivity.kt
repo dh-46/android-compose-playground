@@ -1,12 +1,13 @@
 package com.dh46.compose_tutorial
 
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -18,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dh46.compose_tutorial.data.Message
+import com.dh46.compose_tutorial.data.SampleData
 import com.dh46.compose_tutorial.ui.theme.ComposetutorialTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,7 +28,8 @@ class MainActivity : ComponentActivity() {
         setContent {
             ComposetutorialTheme {
                 Surface(modifier = Modifier.fillMaxSize()) {
-                    MessageCard(msg = Message("Biden", "I'm the President of United States."))
+                    Conversation(messages = SampleData.conversationSample)
+//                    MessageCard(msg = Message("Biden", "I'm the President of United States."))
                 }
             }
         }
@@ -70,13 +73,32 @@ fun MessageCard(msg: Message) {
     }
 }
 
-@Preview(name = "Light Mode")
-@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+//@Preview(name = "Light Mode")
+//@Preview(showBackground = true, uiMode = Configuration.UI_MODE_NIGHT_YES, name = "Dark Mode")
+//@Composable
+//fun PreviewMessageCard() {
+//    ComposetutorialTheme {
+//        Surface(modifier = Modifier.fillMaxSize()) {
+//            MessageCard(msg = Message("Biden", "I'm the President of United States."))
+//        }
+//    }
+//}
+
 @Composable
-fun PreviewMessageCard() {
-    ComposetutorialTheme {
-        Surface(modifier = Modifier.fillMaxSize()) {
-            MessageCard(msg = Message("Biden", "I'm the President of United States."))
+fun Conversation(messages: List<Message>) {
+
+    LazyColumn {
+        items(messages) { message ->
+            // Here will be called for each item in the messages list
+            MessageCard(msg = message)
         }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewConversation() {
+    ComposetutorialTheme {
+        Conversation(messages = SampleData.conversationSample)
     }
 }
